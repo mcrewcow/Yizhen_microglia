@@ -151,3 +151,5 @@ ht1 <- netAnalysis_signalingRole_heatmap(cellchat_dogs_cui, pattern = "outgoing"
 ht2 <- netAnalysis_signalingRole_heatmap(cellchat_dogs_cui, pattern = "incoming", height = 32)
 
 ht <- netAnalysis_signalingRole_heatmap(cellchat_dogs_cui, pattern = "all", height = 32)
+
+ht + ht1 + ht2
