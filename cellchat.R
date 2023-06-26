@@ -150,6 +150,41 @@ saveRDS(cellchat, file = "G://YIZHEN/cellchat_SPF.rds")
 ht1 <- netAnalysis_signalingRole_heatmap(cellchat_dogs_cui, pattern = "outgoing", height = 32)
 ht2 <- netAnalysis_signalingRole_heatmap(cellchat_dogs_cui, pattern = "incoming", height = 32)
 
+ht1 <- netAnalysis_signalingRole_heatmap(cellchat_levi.late, pattern = "outgoing", height = 2, signaling = c('SEMA5','MK'))
+ht2 <- netAnalysis_signalingRole_heatmap(cellchat_levi.late, pattern = "incoming", height = 2, signaling = c('SEMA5','MK'))
+
+ht1 + ht2
+
+ht1 <- netAnalysis_signalingRole_heatmap(cellchat_levi.early, pattern = "outgoing", height = 6, signaling = c('NEGR','LAMININ','NGL','NT','SEMA3','ESAM'))
+ht2 <- netAnalysis_signalingRole_heatmap(cellchat_levi.early, pattern = "incoming", height = 6, signaling = c('NEGR','LAMININ','NGL','NT','SEMA3','ESAM'))
+
+ht1 + ht2
+
+ht1 <- netAnalysis_signalingRole_heatmap(cellchat_levi.early, pattern = "outgoing", height = 3, width = 3, signaling = c('NEGR','LAMININ','NGL','NT','SEMA3','ESAM'))
+ht2 <- netAnalysis_signalingRole_heatmap(cellchat_levi.early, pattern = "incoming", height = 3, width = 3, signaling = c('NEGR','LAMININ','NGL','NT','SEMA3','ESAM'))
+
+ht1 + ht2
+
+ht1 <- netAnalysis_signalingRole_heatmap(cellchat_levi.late, pattern = "outgoing", height = 1, width = 3, signaling = c('SEMA5','MK'))
+ht2 <- netAnalysis_signalingRole_heatmap(cellchat_levi.late, pattern = "incoming", height = 1, width = 3, signaling = c('SEMA5','MK'))
+
+ht1 + ht2
+
+strwidth <- function(x) {0.5}
+netVisual_aggregate(cellchat_levi.early, signaling = c('LAMININ'), layout = "chord", show.legend = FALSE)
+netVisual_aggregate(cellchat_levi.early, signaling = c('NT'), layout = "chord", show.legend = FALSE)
+
+
+strwidth <- function(x) {0.2}
+netVisual_aggregate(cellchat_yizhen_MBNA, signaling = c('TGFb'), layout = "chord", show.legend = FALSE)
+
+netAnalysis_contribution(cellchat_yizhen_MBNA, signaling = 'TGFb')
+pairLR.NT <- extractEnrichedLR(cellchat_yizhen_MBNA, signaling = 'TGFb', geneLR.return = FALSE)
+pairLR.NT
+LR.show <- pairLR.NT[1:length(LR.show),]
+netVisual_individual(cellchat_yizhen_MBNA, signaling = 'TGFb', pairLR.use = LR.show, layout = "chord")
+
+
 ht <- netAnalysis_signalingRole_heatmap(cellchat_dogs_cui, pattern = "all", height = 32)
 
 ht + ht1 + ht2
