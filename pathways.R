@@ -52,3 +52,24 @@ gene.sets1 <- getGeneSets(library = "C5", gene.sets = c("GOBP_MICROGLIA_DIFFEREN
 ES <- enrichIt(obj = yizhen,
 gene.sets = gene.sets1,
 groups = 1000, cores = 1)
+
+yizhen <- AddMetaData(yizhen, ES)
+ES <- data.frame(yizhen[[]], Idents(yizhen))
+colnames(ES)[ncol(ES)] <- "cluster"
+ridgeEnrichment(ES, gene.set = "MP", group = 'background', add.rug = TRUE)
+
+
+ES_macrophage <- subset(ES, subset = ident_v1 == '31_Macrophage')
+ridgeEnrichment(ES_macrophage, gene.set = "GOBP_MACROPHAGE_ACTIVATION", group = 'background', add.rug = TRUE) + facet_wrap(~ident_v1)
+
+yizhen <- RenameIdents(yizhen, 'Photoreceptor' = 'Rest','Photoreceptor_2' = 'Rest','18_Bipolar_Neuron' = 'Rest','Bipolar_Cone' = 'Rest','Microglia_Inflamm_C1'='Microglia','Microglia_IFN-Resp_C2' = 'Microglia', 'Microglia_resting_C0' = 'Microglia','Microglia_Proliferating_C3' = 'Microglia', '36_Melanocyte' = 'Melanocyte', '34_Melanocyte_2' = 'Melanocyte')
+yizhen$ident_v2 <- yizhen@active.ident
+yizhen_mg <- subset(yizhen, idents = c('Microglia','31_Macrophage'))
+
+ES_mg <- subset(ES, subset = ident_v2 == c('Microglia','31_Macrophage'))
+ridgeEnrichment(ES_mg, gene.set = "GOBP_MICROGLIAL_CELL_MEDIATED_CYTOTOXICITY", group = 'background', add.rug = TRUE) + facet_wrap(~ident_v2)
+
+ES_T <- subset(ES, subset = ident_v2 == 'T_Cell')
+
+ridgeEnrichment(ES_T, gene.set = "GOBP_T_CELL_ACTIVATION", group = 'background', add.rug = TRUE) + facet_wrap(~ident_v2)
+
