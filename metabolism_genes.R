@@ -1,6 +1,8 @@
 #Load adult human Seurat object
 library(reshape2)
 library(tidyr)
+library(tidyverse)
+library(dplyr)
 
 avg_expr <- AverageExpression(adult, features = c('IDO1','IDO2','KYNU','KMO','QPRT','KYAT','LAT1'))
 avg_expr <- AverageExpression(adult, features = c('SLC7A5'))
